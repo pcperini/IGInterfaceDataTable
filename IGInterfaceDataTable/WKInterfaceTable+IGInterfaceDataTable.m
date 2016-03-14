@@ -11,6 +11,33 @@
 #import "WKInterfaceTable+IGInterfaceDataTable.h"
 
 #import <objc/runtime.h>
+#import <Foundation/Foundation.h>
+
+@interface NSIndexPath (TableRows)
+
++ (instancetype)indexPathForRow:(NSInteger)row inSection:(NSInteger)section;
+
+@property (nonatomic, readonly) NSInteger section;
+@property (nonatomic, readonly) NSInteger row;
+
+@end
+
+@implementation NSIndexPath (TableRows)
+
++ (instancetype)indexPathForRow:(NSInteger)row inSection:(NSInteger)section {
+  NSUInteger indexes[2] = {section, row};
+  return [NSIndexPath indexPathWithIndexes:indexes length:2];
+}
+
+- (NSInteger)section {
+  return [self indexAtPosition:0];
+}
+
+- (NSInteger)row {
+  return [self indexAtPosition:1];
+}
+
+@end
 
 
 @interface IGTableRowData : NSObject
